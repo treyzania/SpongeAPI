@@ -24,6 +24,7 @@
  */
 package org.spongepowered.api.extra.modifier.skylands;
 
+import org.spongepowered.api.CatalogKey;
 import org.spongepowered.api.block.BlockTypes;
 import org.spongepowered.api.data.DataContainer;
 import org.spongepowered.api.util.weighted.VariableAmount;
@@ -73,8 +74,8 @@ public class SkylandsWorldGeneratorModifier implements WorldGeneratorModifier {
     }
 
     @Override
-    public String getId() {
-        return "sponge:skylands";
+    public CatalogKey getKey() {
+        return CatalogKey.sponge("skylands");
     }
 
     @Override

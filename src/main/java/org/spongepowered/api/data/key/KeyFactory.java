@@ -25,9 +25,11 @@
 package org.spongepowered.api.data.key;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 import com.google.common.base.Objects;
 import com.google.common.reflect.TypeToken;
+import org.spongepowered.api.CatalogKey;
 import org.spongepowered.api.data.DataQuery;
 import org.spongepowered.api.data.DataView;
 import org.spongepowered.api.data.value.BaseValue;
@@ -70,18 +72,43 @@ public final class KeyFactory {
      * @param id The id for the new key
      * @param name The name for the new key
      * @return The generated key
+     * @deprecated use {@link #makeSingleKey(TypeToken, TypeToken, DataQuery, CatalogKey, String)}
      */
+    @Deprecated
     public static <E, V extends BaseValue<E>> Key<V> makeSingleKey(final TypeToken<E> elementToken, final TypeToken<V> valueToken,
             final DataQuery query, final String id, final String name) {
         validateId(id);
+        return makeSingleKey(elementToken, valueToken, query, CatalogKey.resolve(id), name);
+    }
+
+    /**
+     * Creates a new {@link Key} with the provided <code>E</code> element class
+     * and <code>V</code> {@link Value} class along with the provided default
+     * {@link DataQuery} to be used with the generated {@link Key}.
+     *
+     * <p>Note that {@link Key}s are not registered, but it is recommended to
+     * avoid generating {@link Key}s of potentially conflicting
+     * {@link DataQuery}(s).</p>
+     *
+     * @param <E> The type of element
+     * @param <V> The inferred return type
+     * @param elementToken The element class
+     * @param valueToken The value class
+     * @param query The query
+     * @param key The catalog key
+     * @param name The name for the new key
+     * @return The generated key
+     */
+    public static <E, V extends BaseValue<E>> Key<V> makeSingleKey(final TypeToken<E> elementToken, final TypeToken<V> valueToken,
+            final DataQuery query, final CatalogKey key, final String name) {
+        checkNotNull(key, "key");
         return new Key<V>() {
 
             @Nullable private String string;
 
-
             @Override
-            public String getId() {
-                return id;
+            public CatalogKey getKey() {
+                return key;
             }
 
             @Override
@@ -135,16 +162,36 @@ public final class KeyFactory {
      * @param id The id for the new key
      * @param name The name for the new key
      * @return The generated key
+     * @deprecated use {@link #makeListKey(TypeToken, TypeToken, DataQuery, CatalogKey, String)}
      */
+    @Deprecated
     public static <E> Key<ListValue<E>> makeListKey(final TypeToken<? extends List<E>> elementToken, final TypeToken<ListValue<E>> valueToken,
             final DataQuery query, final String id, final String name) {
         validateId(id);
+        return makeListKey(elementToken, valueToken, query, CatalogKey.resolve(id), name);
+    }
+
+    /**
+     * Creates a new {@link Key} based on a {@link ListValue} of a type
+     * <code>E</code> element along with the provided {@link DataQuery}.
+     *
+     * @param <E> The type of element
+     * @param elementToken The element class
+     * @param valueToken The value class
+     * @param query The query to access the data
+     * @param key The catalog key
+     * @param name The name for the new key
+     * @return The generated key
+     */
+    public static <E> Key<ListValue<E>> makeListKey(final TypeToken<? extends List<E>> elementToken, final TypeToken<ListValue<E>> valueToken,
+            final DataQuery query, final CatalogKey key, final String name) {
+        checkNotNull(key, "key");
         return new Key<ListValue<E>>() {
             @Nullable private String string;
 
             @Override
-            public String getId() {
-                return id;
+            public CatalogKey getKey() {
+                return key;
             }
 
             @Override
@@ -195,17 +242,37 @@ public final class KeyFactory {
      * @param id The id for the new key
      * @param name The name for the new key
      * @return The generated key
+     * @deprecated use {@link #makeSetKey(TypeToken, TypeToken, DataQuery, CatalogKey, String)}
      */
+    @Deprecated
     public static <E> Key<SetValue<E>> makeSetKey(final TypeToken<? extends Set<E>> elementToken, TypeToken<SetValue<E>> valueToken,
             final DataQuery query, final String id, final String name) {
         validateId(id);
+        return makeSetKey(elementToken, valueToken, query, CatalogKey.resolve(id), name);
+    }
+
+    /**
+     * Creates a new {@link Key} based on a {@link SetValue} of a type
+     * <code>E</code> element along with the provided {@link DataQuery}.
+     *
+     * @param <E> The type of element
+     * @param elementToken The element class
+     * @param valueToken The value token
+     * @param query The query to access the data
+     * @param key The catalog key
+     * @param name The name for the new key
+     * @return The generated key
+     */
+    public static <E> Key<SetValue<E>> makeSetKey(final TypeToken<? extends Set<E>> elementToken, TypeToken<SetValue<E>> valueToken,
+            final DataQuery query, final CatalogKey key, final String name) {
+        checkNotNull(key, "key");
         return new Key<SetValue<E>>() {
 
             @Nullable private String string;
 
             @Override
-            public String getId() {
-                return id;
+            public CatalogKey getKey() {
+                return key;
             }
 
             @Override
@@ -258,17 +325,39 @@ public final class KeyFactory {
      * @param id The id for the new key
      * @param name The name for the new key
      * @return The generated key
+     * @deprecated use {@link #makeMapKey(TypeToken, TypeToken, DataQuery, CatalogKey, String)}
+     */
+    @Deprecated
+    public static <K, V> Key<MapValue<K, V>> makeMapKey(final TypeToken<Map<K, V>> elementToken, final TypeToken<MapValue<K, V>> valueToken,
+            final DataQuery query, final String id, final String name) {
+        validateId(id);
+        return makeMapKey(elementToken, valueToken, query, CatalogKey.resolve(id), name);
+    }
+
+    /**
+     * Creates a new {@link Key} based on a {@link MapValue} of the types
+     * <code>K</code> keys and <code>V</code> values with the provided
+     * {@link DataQuery} for accessing the {@link Map} in {@link DataView}s.
+     *
+     * @param <K> The type of keys
+     * @param <V> The type of values
+     * @param elementToken The element token
+     * @param valueToken The value class of the map
+     * @param query The query
+     * @param key The catalog key
+     * @param name The name for the new key
+     * @return The generated key
      */
     public static <K, V> Key<MapValue<K, V>> makeMapKey(final TypeToken<Map<K, V>> elementToken, final TypeToken<MapValue<K, V>> valueToken,
-                final DataQuery query, final String id, final String name) {
-        validateId(id);
+                final DataQuery query, final CatalogKey key, final String name) {
+        checkNotNull(key, "key");
         return new Key<MapValue<K, V>>() {
 
             @Nullable private String string;
 
             @Override
-            public String getId() {
-                return id;
+            public CatalogKey getKey() {
+                return key;
             }
 
             @Override
@@ -321,16 +410,37 @@ public final class KeyFactory {
      * @param id The id for the new key
      * @param name The name for the new key
      * @return The generated key
+     * @deprecated use {@link #makeOptionalKey(TypeToken, TypeToken, DataQuery, CatalogKey, String)}
      */
+    @Deprecated
     public static <E> Key<OptionalValue<E>> makeOptionalKey(final TypeToken<Optional<E>> elementToken, TypeToken<OptionalValue<E>> valueToken,
             final DataQuery query, final String id, final String name) {
         validateId(id);
+        return makeOptionalKey(elementToken, valueToken, query, CatalogKey.resolve(id), name);
+    }
+
+    /**
+     * Creates a new {@link Key} based on an {@link OptionalValue} of the type
+     * <code>E</code> element type with the provided {@link DataQuery} for
+     * accessing the optionally null value in {@link DataView}s.
+     *
+     * @param <E> The element type
+     * @param elementToken The element class
+     * @param valueToken The value class
+     * @param query The query
+     * @param key The catalog key
+     * @param name The name for the new key
+     * @return The generated key
+     */
+    public static <E> Key<OptionalValue<E>> makeOptionalKey(final TypeToken<Optional<E>> elementToken, TypeToken<OptionalValue<E>> valueToken,
+            final DataQuery query, final CatalogKey key, final String name) {
+        checkNotNull(key, "key");
         return new Key<OptionalValue<E>>() {
             @Nullable private String string;
 
             @Override
-            public String getId() {
-                return id;
+            public CatalogKey getKey() {
+                return key;
             }
 
             @Override
@@ -378,7 +488,7 @@ public final class KeyFactory {
     static <E, V extends BaseValue<E>> Key<V> fake(final String keyName) {
         return new Key<V>() {
             @Override
-            public String getId() {
+            public CatalogKey getKey() {
                 throw new UnsupportedOperationException("Key " + keyName + " is not implemented");
             }
 
