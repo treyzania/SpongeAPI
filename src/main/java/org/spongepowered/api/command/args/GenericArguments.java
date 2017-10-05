@@ -1086,50 +1086,25 @@ public final class GenericArguments {
         }
     }
 
-    private static class UserCommandElement extends PatternMatchingCommandElement {
+    private static class UserCommandElement extends SelectorCommandElement {
 
-        private final PlayerCommandElement possiblePlayer;
         private final boolean returnSource;
 
         protected UserCommandElement(@Nullable Text key, boolean returnSource) {
             super(key);
-            this.possiblePlayer = new PlayerCommandElement(key, returnSource);
             this.returnSource = returnSource;
         }
 
         @Nullable
         @Override
         protected Object parseValue(CommandSource source, CommandArgs args) throws ArgumentParseException {
-            Object state = args.getState();
-
-            // Exact match on USER.
-            Optional<User> match = Sponge.getServiceManager().provideUnchecked(UserStorageService.class).get(args.next());
-            if (match.isPresent()) {
-                User ret = match.get();
-                Optional<Player> playerOptional = ret.getPlayer();
-
-                // Return the player object if it exists (current expectation)
-                if (playerOptional.isPresent()) {
-                    return playerOptional.get();
-                }
-
-                return ret;
-            }
-
-            // Reset state.
-            args.setState(state);
             try {
-                return this.possiblePlayer.parseValue(source, args);
-            } catch (ArgumentParseException ex) {
-                args.setState(state);
-                try {
-                    return super.parseValue(source, args);
-                } catch (ArgumentParseException ex2) {
-                    if (this.returnSource && source instanceof User) {
-                        return source;
-                    }
-                    throw ex2;
+                return Iterables.filter((Iterable<Entity>)super.parseValue(source, args), e -> e instanceof User);
+            } catch (ArgumentParseException ex2) {
+                if (this.returnSource && source instanceof User) {
+                    return source;
                 }
+                throw ex2;
             }
         }
 
@@ -1145,12 +1120,6 @@ public final class GenericArguments {
         @Override
         protected Object getValue(String choice) throws IllegalArgumentException {
             return Sponge.getGame().getServiceManager().provideUnchecked(UserStorageService.class).get(choice).get();
-        }
-
-        @Override
-        protected Optional<Object> getExactMatch(Iterable<String> choices, String potentialChoice) {
-            // We did this earlier, so no point in doing a check here.
-            return Optional.empty();
         }
     }
 
