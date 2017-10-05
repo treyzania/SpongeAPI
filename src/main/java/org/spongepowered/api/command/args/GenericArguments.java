@@ -1121,6 +1121,23 @@ public final class GenericArguments {
         protected Object getValue(String choice) throws IllegalArgumentException {
             return Sponge.getGame().getServiceManager().provideUnchecked(UserStorageService.class).get(choice).get();
         }
+
+        @Override
+        public void parse(CommandSource source, CommandArgs args, CommandContext context) throws ArgumentParseException {
+            if (getKey() != null && !context.hasAny(CommandContext.TAB_COMPLETION)) {
+                Object state = args.getState();
+                String el = args.next();
+                Optional<User> match = Sponge.getServiceManager().provideUnchecked(UserStorageService.class).get(el);
+                if (match.isPresent()) {
+                    context.putArg(getKey(), match.get());
+                    return;
+                }
+
+                args.setState(state);
+            }
+
+            super.parse(source, args, context);
+        }
     }
 
     private static class PlayerCommandElement extends SelectorCommandElement {
