@@ -24,22 +24,58 @@
  */
 package org.spongepowered.api.event.item.inventory;
 
+import org.spongepowered.api.data.Transaction;
 import org.spongepowered.api.item.inventory.ItemStackSnapshot;
 import org.spongepowered.api.item.inventory.crafting.CraftingInventory;
+import org.spongepowered.api.item.inventory.transaction.SlotTransaction;
+import org.spongepowered.api.item.recipe.Recipe;
 import org.spongepowered.api.item.recipe.crafting.CraftingRecipe;
 
 public interface CraftItemEvent extends ChangeInventoryEvent {
 
+    /**
+     * Returns the crafting inventory.
+     * <p>This includes the crafting grid and one output slot</p>
+     *
+     * @return The crafting inventory
+     */
     CraftingInventory getCraftingInventory();
+
+    /**
+     * Returns the {@link Recipe} used for crafting
+     *
+     * @return The recipe
+     */
     CraftingRecipe getRecipe();
 
+    /**
+     * This event is fired before the item is taken out of the
+     * output slot but after completing the recipe in the grid.
+     */
     interface Pre extends CraftItemEvent {
-        ItemStackSnapshot getPreview();
-        void setPreview(ItemStackSnapshot custom);
+
+        /**
+         * The SlotTransaction on the output slot.
+         * TODO check if this actually happens
+         * <p>Setting a custom Item here changes the result of the recipe replacing the default result</p>
+         *
+         * @return The output SlotTransaction
+         */
+        SlotTransaction getPreview();
     }
 
+    /**
+     * This event is fired after the item is taken out of the output slot.
+     */
     interface Post extends CraftItemEvent {
-        ItemStackSnapshot getResult();
-        void setResult(ItemStackSnapshot custom);
+
+        /**
+         * The crafting Transaction when taking out items from the output slot.
+         *
+         * <p>The crafting result can end up on the Cursor, on a Slot or thrown out of the inventory</p>
+         *
+         * @return The crafting transaction
+         */
+        Transaction<ItemStackSnapshot> getResult();
     }
 }
