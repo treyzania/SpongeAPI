@@ -31,6 +31,10 @@ import org.spongepowered.api.item.inventory.transaction.SlotTransaction;
 import org.spongepowered.api.item.recipe.Recipe;
 import org.spongepowered.api.item.recipe.crafting.CraftingRecipe;
 
+import java.util.Optional;
+
+import javax.annotation.Nullable;
+
 public interface CraftItemEvent extends ChangeInventoryEvent {
 
     /**
@@ -46,7 +50,7 @@ public interface CraftItemEvent extends ChangeInventoryEvent {
      *
      * @return The recipe
      */
-    CraftingRecipe getRecipe();
+    Optional<CraftingRecipe> getRecipe();
 
     /**
      * This event is fired before the item is taken out of the
@@ -56,7 +60,6 @@ public interface CraftItemEvent extends ChangeInventoryEvent {
 
         /**
          * The SlotTransaction on the output slot.
-         * TODO check if this actually happens
          * <p>Setting a custom Item here changes the result of the recipe replacing the default result</p>
          *
          * @return The output SlotTransaction
@@ -76,6 +79,6 @@ public interface CraftItemEvent extends ChangeInventoryEvent {
          *
          * @return The crafting transaction
          */
-        Transaction<ItemStackSnapshot> getResult();
+        Transaction<ItemStackSnapshot> getCrafted();
     }
 }
