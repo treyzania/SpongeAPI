@@ -56,7 +56,7 @@ public interface CraftItemEvent extends ChangeInventoryEvent {
      * This event is fired before the item is taken out of the
      * output slot but after completing the recipe in the grid.
      */
-    interface Pre extends CraftItemEvent {
+    interface Preview extends CraftItemEvent {
 
         /**
          * The SlotTransaction on the output slot.
@@ -70,7 +70,7 @@ public interface CraftItemEvent extends ChangeInventoryEvent {
     /**
      * This event is fired after the item is taken out of the output slot.
      */
-    interface Post extends CraftItemEvent {
+    interface Craft extends CraftItemEvent {
 
         /**
          * The crafting Transaction when taking out items from the output slot.
