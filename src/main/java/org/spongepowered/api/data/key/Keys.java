@@ -1161,7 +1161,7 @@ public final class Keys {
      * Represents the {@link Key} for whether a {@link Player} is flying with an
      * {@link ItemTypes#ELYTRA}.
      *
-     * @see ElytraData#flying
+     * @see ElytraFlyingData#elytraFlying() 
      */
     public static final Key<Value<Boolean>> IS_ELYTRA_FLYING = DummyObjectProvider.createExtendedFor(Key.class, "IS_ELYTRA_FLYING");
 

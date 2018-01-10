@@ -26,7 +26,7 @@ package org.spongepowered.api.data.manipulator.immutable.entity;
 
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.manipulator.ImmutableDataManipulator;
-import org.spongepowered.api.data.manipulator.mutable.entity.ElytraData;
+import org.spongepowered.api.data.manipulator.mutable.entity.ElytraFlyingData;
 import org.spongepowered.api.data.value.immutable.ImmutableValue;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.item.ItemTypes;
@@ -36,7 +36,7 @@ import org.spongepowered.api.item.ItemTypes;
  * is flying in elytra style, which in vanilla usually means they also have a
  * {@link ItemTypes#ELYTRA} equipped in their chest slot.
  */
-public interface ImmutableElytraData extends ImmutableDataManipulator<ImmutableElytraData, ElytraData> {
+public interface ImmutableElytraFlyingData extends ImmutableDataManipulator<ImmutableElytraFlyingData, ElytraFlyingData> {
 
     /**
      * Gets the {@link ImmutableValue} elytra flying state.
@@ -44,6 +44,6 @@ public interface ImmutableElytraData extends ImmutableDataManipulator<ImmutableE
      * @return The elytra flying state immutable value
      * @see Keys#IS_ELYTRA_FLYING
      */
-    ImmutableValue<Boolean> flying();
+    ImmutableValue<Boolean> elytraFlying();
 
 }
