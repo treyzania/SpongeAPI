@@ -24,7 +24,6 @@
  */
 package org.spongepowered.api.event.item.inventory;
 
-import org.spongepowered.api.data.Transaction;
 import org.spongepowered.api.item.inventory.ItemStackSnapshot;
 import org.spongepowered.api.item.inventory.crafting.CraftingInventory;
 import org.spongepowered.api.item.inventory.transaction.SlotTransaction;
@@ -32,8 +31,6 @@ import org.spongepowered.api.item.recipe.Recipe;
 import org.spongepowered.api.item.recipe.crafting.CraftingRecipe;
 
 import java.util.Optional;
-
-import javax.annotation.Nullable;
 
 public interface CraftItemEvent extends ChangeInventoryEvent {
 
@@ -70,15 +67,13 @@ public interface CraftItemEvent extends ChangeInventoryEvent {
     /**
      * This event is fired after the item is taken out of the output slot.
      */
-    interface Craft extends CraftItemEvent {
+    interface Craft extends CraftItemEvent, ClickInventoryEvent {
 
         /**
-         * The crafting Transaction when taking out items from the output slot.
-         *
-         * <p>The crafting result can end up on the Cursor, on a Slot or thrown out of the inventory</p>
+         * The item crafted with this event.
          *
          * @return The crafting transaction
          */
-        Transaction<ItemStackSnapshot> getCrafted();
+        ItemStackSnapshot getCrafted();
     }
 }
