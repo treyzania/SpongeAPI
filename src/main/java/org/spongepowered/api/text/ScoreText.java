@@ -164,5 +164,11 @@ public interface ScoreText extends Text {
 
         @Override
         Builder removeAll();
+
+        @Override
+        ScoreText build();
+
+        @Override
+        Builder from(Text value);
     }
 }

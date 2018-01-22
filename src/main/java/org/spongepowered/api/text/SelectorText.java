@@ -137,5 +137,11 @@ public interface SelectorText extends Text {
 
         @Override
         Builder removeAll();
+
+        @Override
+        SelectorText build();
+
+        @Override
+        Builder from(Text value);
     }
 }

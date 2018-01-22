@@ -24,6 +24,9 @@
  */
 package org.spongepowered.api.text;
 
+import org.spongepowered.api.scoreboard.Score;
+import org.spongepowered.api.text.selector.Selector;
+
 import java.util.Iterator;
 
 public interface TextFactory {
@@ -32,6 +35,10 @@ public interface TextFactory {
     LiteralText literal(final char content);
 
     LiteralText literal(final String content);
+
+    ScoreText score(final Score score);
+
+    SelectorText selector(final Selector selector);
 
     Text of(final Object... args);
 

@@ -533,7 +533,7 @@ public interface Text extends Comparable<Text>, DataSerializable, TextRepresenta
      * @see SelectorText
      */
     static SelectorText of(Selector selector) {
-        return new SelectorText(selector);
+        return Sponge.getRegistry().getTextFactory().selector(selector);
     }
 
     /**
@@ -544,7 +544,7 @@ public interface Text extends Comparable<Text>, DataSerializable, TextRepresenta
      * @see ScoreText
      */
     static ScoreText of(Score score) {
-        return new ScoreText(score);
+        return Sponge.getRegistry().getTextFactory().score(score);
     }
 
     /**
@@ -692,7 +692,7 @@ public interface Text extends Comparable<Text>, DataSerializable, TextRepresenta
      * @see SelectorText.Builder
      */
     static SelectorText.Builder builder(Selector selector) {
-        return new SelectorText.Builder(selector);
+        return Sponge.getRegistry().createBuilder(SelectorText.Builder.class).selector(selector);
     }
 
     /**
@@ -706,7 +706,7 @@ public interface Text extends Comparable<Text>, DataSerializable, TextRepresenta
      * @see SelectorText.Builder
      */
     static SelectorText.Builder builder(Text text, Selector selector) {
-        return new SelectorText.Builder(text, selector);
+        return Sponge.getRegistry().createBuilder(SelectorText.Builder.class).from(text).selector(selector);
     }
 
     /**
@@ -718,7 +718,7 @@ public interface Text extends Comparable<Text>, DataSerializable, TextRepresenta
      * @see ScoreText.Builder
      */
     static ScoreText.Builder builder(Score score) {
-        return new ScoreText.Builder(score);
+        return Sponge.getRegistry().createBuilder(ScoreText.Builder.class).score(score);
     }
 
     /**
@@ -732,7 +732,7 @@ public interface Text extends Comparable<Text>, DataSerializable, TextRepresenta
      * @see ScoreText.Builder
      */
     static ScoreText.Builder builder(Text text, Score score) {
-        return new ScoreText.Builder(text, score);
+        return Sponge.getRegistry().createBuilder(ScoreText.Builder.class).from(text).score(score);
     }
 
     /**
