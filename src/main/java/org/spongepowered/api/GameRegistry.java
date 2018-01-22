@@ -51,6 +51,7 @@ import org.spongepowered.api.statistic.EntityStatistic;
 import org.spongepowered.api.statistic.ItemStatistic;
 import org.spongepowered.api.statistic.Statistic;
 import org.spongepowered.api.statistic.StatisticType;
+import org.spongepowered.api.text.TextFactory;
 import org.spongepowered.api.text.format.TextColor;
 import org.spongepowered.api.text.selector.SelectorFactory;
 import org.spongepowered.api.text.serializer.TextSerializerFactory;
@@ -372,6 +373,15 @@ public interface GameRegistry {
      * @return The villager registry instance
      */
     VillagerRegistry getVillagerRegistry();
+
+    /**
+     * Gets the internal {@link TextFactory}.
+     *
+     * @return The text factory
+     * @deprecated Internal use only.
+     */
+    @Deprecated
+    TextFactory getTextFactory();
 
     /**
      * Gets the internal {@link TextSerializerFactory}.
