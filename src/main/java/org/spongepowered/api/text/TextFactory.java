@@ -56,4 +56,10 @@ public interface TextFactory {
     TextFormat emptyFormat();
 
     TextFormat format(final TextColor color, final TextStyle style);
+
+    // Template
+
+    TextTemplate emptyTemplate();
+
+    TextTemplate template(String openArg, String closeArg, Object[] elements);
 }
