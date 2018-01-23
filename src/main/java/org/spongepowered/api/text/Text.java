@@ -474,6 +474,16 @@ public interface Text extends Comparable<Text>, DataSerializable, TextRepresenta
     }
 
     /**
+     * Returns an empty, unformatted {@link Text} instance.
+     *
+     * @return An empty text
+     */
+    @SuppressWarnings("deprecation")
+    static Text newLine() {
+        return Sponge.getRegistry().getTextFactory().newLine();
+    }
+
+    /**
      * Creates a {@link Text} with the specified plain text. The created text
      * won't have any formatting or events configured.
      *
@@ -508,8 +518,9 @@ public interface Text extends Comparable<Text>, DataSerializable, TextRepresenta
      * @return The created text
      * @see TranslatableText
      */
+    @SuppressWarnings("deprecation")
     static TranslatableText of(Translation translation, Object... args) {
-        return new TranslatableText(translation, ImmutableList.copyOf(checkNotNull(args, "args")));
+        return Sponge.getRegistry().getTextFactory().translatable(translation, ImmutableList.copyOf(checkNotNull(args, "args")));
     }
 
     /**
@@ -532,6 +543,7 @@ public interface Text extends Comparable<Text>, DataSerializable, TextRepresenta
      * @return The created text
      * @see SelectorText
      */
+    @SuppressWarnings("deprecation")
     static SelectorText of(Selector selector) {
         return Sponge.getRegistry().getTextFactory().selector(selector);
     }
@@ -634,7 +646,7 @@ public interface Text extends Comparable<Text>, DataSerializable, TextRepresenta
      * @see TranslatableText.Builder
      */
     static TranslatableText.Builder builder(Translation translation, Object... args) {
-        return new TranslatableText.Builder(translation, args);
+        return Sponge.getRegistry().createBuilder(TranslatableText.Builder.class).translation(translation, args);
     }
 
     /**
@@ -648,7 +660,7 @@ public interface Text extends Comparable<Text>, DataSerializable, TextRepresenta
      * @see TranslatableText.Builder
      */
     static TranslatableText.Builder builder(Translatable translatable, Object... args) {
-        return new TranslatableText.Builder(translatable, args);
+        return Sponge.getRegistry().createBuilder(TranslatableText.Builder.class).translation(translatable, args);
     }
 
     /**
@@ -664,7 +676,7 @@ public interface Text extends Comparable<Text>, DataSerializable, TextRepresenta
      * @see TranslatableText.Builder
      */
     static TranslatableText.Builder builder(Text text, Translation translation, Object... args) {
-        return new TranslatableText.Builder(text, translation, args);
+        return Sponge.getRegistry().createBuilder(TranslatableText.Builder.class).from(text).translation(translation, args);
     }
 
     /**
@@ -679,7 +691,7 @@ public interface Text extends Comparable<Text>, DataSerializable, TextRepresenta
      * @see TranslatableText.Builder
      */
     static TranslatableText.Builder builder(Text text, Translatable translatable, Object... args) {
-        return new TranslatableText.Builder(text, translatable, args);
+        return Sponge.getRegistry().createBuilder(TranslatableText.Builder.class).from(text).translation(translatable, args);
     }
 
     /**
@@ -799,5 +811,4 @@ public interface Text extends Comparable<Text>, DataSerializable, TextRepresenta
     static Text joinWith(Text separator, Iterator<? extends Text> texts) {
         return Sponge.getRegistry().getTextFactory().joinWith(separator, texts);
     }
-
 }

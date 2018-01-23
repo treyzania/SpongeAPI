@@ -30,6 +30,7 @@ import org.spongepowered.api.text.format.TextFormat;
 import org.spongepowered.api.text.format.TextStyle;
 import org.spongepowered.api.text.selector.Selector;
 import org.spongepowered.api.text.serializer.FormattingCodeTextSerializer;
+import org.spongepowered.api.text.translation.Translation;
 
 import java.util.Iterator;
 
@@ -38,9 +39,13 @@ public interface TextFactory {
 
     Text emptyText();
 
+    Text newLine();
+
     LiteralText literal(final char content);
 
     LiteralText literal(final String content);
+
+    TranslatableText translatable(Translation translation, Object... args);
 
     ScoreText score(final Score score);
 
