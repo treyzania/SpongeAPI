@@ -508,7 +508,7 @@ public final class TextTemplate implements TextRepresentable, Iterable<Object> {
             final String name;
             boolean optional = false;
             @Nullable Text defaultValue;
-            TextFormat format = TextFormat.NONE;
+            TextFormat format = TextFormat.of();
 
             Builder(String name) {
                 this.name = name;

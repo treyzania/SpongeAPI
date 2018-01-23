@@ -62,7 +62,7 @@ public class TextFormatConfigSerializer implements TypeSerializer<TextFormat> {
             }
         }
 
-        return TextFormat.NONE.color(color).style(style);
+        return TextFormat.of().color(color).style(style);
     }
 
     @Override

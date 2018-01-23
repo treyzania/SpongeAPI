@@ -25,11 +25,16 @@
 package org.spongepowered.api.text;
 
 import org.spongepowered.api.scoreboard.Score;
+import org.spongepowered.api.text.format.TextColor;
+import org.spongepowered.api.text.format.TextFormat;
+import org.spongepowered.api.text.format.TextStyle;
 import org.spongepowered.api.text.selector.Selector;
 
 import java.util.Iterator;
 
 public interface TextFactory {
+    // Text
+
     Text empty();
 
     LiteralText literal(final char content);
@@ -45,4 +50,10 @@ public interface TextFactory {
     Text joinWith(final Text separator, final Text... texts);
 
     Text joinWith(final Text separator, final Iterator<? extends Text> texts);
+
+    // Format
+
+    TextFormat emptyFormat();
+
+    TextFormat format(final TextColor color, final TextStyle style);
 }
