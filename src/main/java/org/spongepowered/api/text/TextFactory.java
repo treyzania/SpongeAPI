@@ -29,13 +29,14 @@ import org.spongepowered.api.text.format.TextColor;
 import org.spongepowered.api.text.format.TextFormat;
 import org.spongepowered.api.text.format.TextStyle;
 import org.spongepowered.api.text.selector.Selector;
+import org.spongepowered.api.text.serializer.FormattingCodeTextSerializer;
 
 import java.util.Iterator;
 
 public interface TextFactory {
     // Text
 
-    Text empty();
+    Text emptyText();
 
     LiteralText literal(final char content);
 
@@ -62,4 +63,15 @@ public interface TextFactory {
     TextTemplate emptyTemplate();
 
     TextTemplate template(String openArg, String closeArg, Object[] elements);
+
+    // Serializer
+
+    /**
+     * Returns a representation that accepts and outputs legacy color codes,
+     * using the provided legacy character.
+     *
+     * @param legacyChar The legacy character to parse and output using
+     * @return The appropriate legacy representation handler
+     */
+    FormattingCodeTextSerializer createFormattingCodeSerializer(char legacyChar);
 }

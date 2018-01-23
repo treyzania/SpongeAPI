@@ -470,7 +470,7 @@ public interface Text extends Comparable<Text>, DataSerializable, TextRepresenta
      */
     @SuppressWarnings("deprecation")
     static Text of() {
-        return Sponge.getRegistry().getTextFactory().empty();
+        return Sponge.getRegistry().getTextFactory().emptyText();
     }
 
     /**
