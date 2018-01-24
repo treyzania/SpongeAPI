@@ -24,32 +24,15 @@
  */
 package org.spongepowered.api.text;
 
-import org.spongepowered.api.scoreboard.Score;
 import org.spongepowered.api.text.format.TextColor;
 import org.spongepowered.api.text.format.TextFormat;
 import org.spongepowered.api.text.format.TextStyle;
-import org.spongepowered.api.text.selector.Selector;
 import org.spongepowered.api.text.serializer.FormattingCodeTextSerializer;
-import org.spongepowered.api.text.translation.Translation;
 
 import java.util.Iterator;
 
 public interface TextFactory {
     // Text
-
-    Text emptyText();
-
-    Text newLine();
-
-    LiteralText literal(final char content);
-
-    LiteralText literal(final String content);
-
-    TranslatableText translatable(Translation translation, Object... args);
-
-    ScoreText score(final Score score);
-
-    SelectorText selector(final Selector selector);
 
     Text of(final Object... args);
 
