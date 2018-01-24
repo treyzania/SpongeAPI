@@ -25,6 +25,7 @@
 package org.spongepowered.api.text;
 
 import com.google.common.collect.ImmutableList;
+import org.spongepowered.api.Sponge;
 import org.spongepowered.api.text.action.ClickAction;
 import org.spongepowered.api.text.action.HoverAction;
 import org.spongepowered.api.text.action.ShiftClickAction;
@@ -45,6 +46,15 @@ import javax.annotation.Nullable;
  * @see Builder
  */
 public interface TranslatableText extends Text {
+
+    /**
+     * Creates a {@link Builder}.
+     *
+     * @return A new text builder
+     */
+    static Builder builder() {
+        return Sponge.getRegistry().createBuilder(Builder.class);
+    }
 
     /**
      * Returns the translation of this {@link Text}.

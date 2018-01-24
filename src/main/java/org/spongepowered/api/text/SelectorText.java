@@ -24,6 +24,7 @@
  */
 package org.spongepowered.api.text;
 
+import org.spongepowered.api.Sponge;
 import org.spongepowered.api.text.action.ClickAction;
 import org.spongepowered.api.text.action.HoverAction;
 import org.spongepowered.api.text.action.ShiftClickAction;
@@ -45,6 +46,15 @@ import javax.annotation.Nullable;
  * @see Builder
  */
 public interface SelectorText extends Text {
+
+    /**
+     * Creates a {@link Builder}.
+     *
+     * @return A new text builder
+     */
+    static Builder builder() {
+        return Sponge.getRegistry().createBuilder(Builder.class);
+    }
 
     /**
      * Returns the selector used in this {@link Text}.

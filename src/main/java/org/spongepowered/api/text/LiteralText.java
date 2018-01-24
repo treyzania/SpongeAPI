@@ -24,6 +24,7 @@
  */
 package org.spongepowered.api.text;
 
+import org.spongepowered.api.Sponge;
 import org.spongepowered.api.text.action.ClickAction;
 import org.spongepowered.api.text.action.HoverAction;
 import org.spongepowered.api.text.action.ShiftClickAction;
@@ -42,6 +43,15 @@ import javax.annotation.Nullable;
  * @see Builder
  */
 public interface LiteralText extends Text {
+
+    /**
+     * Creates a {@link Builder} with empty text.
+     *
+     * @return A new text builder with empty text
+     */
+    static Builder builder() {
+        return Sponge.getRegistry().createBuilder(Builder.class);
+    }
 
     /**
      * Returns the plain text content of this {@link Text}.
@@ -77,6 +87,16 @@ public interface LiteralText extends Text {
          * @see LiteralText#getContent()
          */
         Builder content(String content);
+
+        /**
+         * Sets the plain text content of this text to a new line character.
+         *
+         * @return This text builder
+         * @see #content(String)
+         */
+        default Builder newLine() {
+            return this.content("\n");
+        }
 
         @Override
         Builder format(TextFormat format);

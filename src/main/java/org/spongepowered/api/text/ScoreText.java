@@ -24,6 +24,7 @@
  */
 package org.spongepowered.api.text;
 
+import org.spongepowered.api.Sponge;
 import org.spongepowered.api.scoreboard.Score;
 import org.spongepowered.api.text.action.ClickAction;
 import org.spongepowered.api.text.action.HoverAction;
@@ -45,6 +46,15 @@ import javax.annotation.Nullable;
  * @see Builder
  */
 public interface ScoreText extends Text {
+
+    /**
+     * Creates a {@link Builder}.
+     *
+     * @return A new text builder
+     */
+    static Builder builder() {
+        return Sponge.getRegistry().createBuilder(Builder.class);
+    }
 
     /**
      * Returns the score displayed by this {@link Text}.
